@@ -57,12 +57,12 @@ namespace I3DMapperUI
 
         async Task<XmlDocument> ExportMappings(XmlDocument doc)
         {
-            var mapper = new I3DMapper.Mapper(doc);
-            await Task.Run(() =>
+            return await Task.Factory.StartNew(() =>
             {
+                var mapper = new I3DMapper.Mapper(doc);
                 mapper.Map();
-            });
-            return mapper.Mappings;
+                return mapper.Mappings;
+            }).ConfigureAwait(continueOnCapturedContext: false);           
         }
 
         private void btnCopy_Click(object sender, EventArgs e)
