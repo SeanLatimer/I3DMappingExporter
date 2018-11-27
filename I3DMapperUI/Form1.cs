@@ -58,7 +58,10 @@ namespace I3DMapperUI
         async Task<XmlDocument> ExportMappings(XmlDocument doc)
         {
             var mapper = new I3DMapper.Mapper(doc);
-            mapper.Map();
+            await Task.Run(() =>
+            {
+                mapper.Map();
+            });
             return mapper.Mappings;
         }
 
