@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace I3DMapperUI
@@ -37,17 +30,16 @@ namespace I3DMapperUI
             }
             try
             {
-                XmlDocument doc = new XmlDocument();
-                doc.Load(txtFilePath.Text);
+                XDocument doc = XDocument.Load(txtFilePath.Text);
 
-                Task<XmlDocument> task = ExportMappings(doc);
+                Task<XDocument> task = ExportMappings(doc);
                 btnExport.Enabled = false;
                 txtXml.Text = "Please wait, exporting mappings.";
 
                 task.Wait();
                 var mappings = task.Result;
                 btnExport.Enabled = true;
-                txtXml.Text = XDocument.Parse(mappings.OuterXml).ToString();
+                txtXml.Text = mappings.ToString().Replace("&gt;", ">");
             }
             catch (Exception ex)
             {
@@ -55,7 +47,7 @@ namespace I3DMapperUI
             }
         }
 
-        async Task<XmlDocument> ExportMappings(XmlDocument doc)
+        async Task<XDocument> ExportMappings(XDocument doc)
         {
             return await Task.Factory.StartNew(() =>
             {
