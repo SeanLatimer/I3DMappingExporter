@@ -40,13 +40,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6E4929DB5D0DB5B22E29DD18516DB889"
+        "OwnerKey" = "8:_50D049FE5DAF42CAB377FF4DC24FE8F4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_50D049FE5DAF42CAB377FF4DC24FE8F4"
+        "OwnerKey" = "8:_6E4929DB5D0DB5B22E29DD18516DB889"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -74,6 +74,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
         "Release"
@@ -98,6 +106,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
     }
@@ -225,15 +241,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:I3D Mapping Exporter"
-        "ProductCode" = "8:{6CAA2902-ED30-4A64-A83F-45BE6F242B60}"
-        "PackageCode" = "8:{A2D3A51B-2438-47F1-82A1-49940E98A9A7}"
+        "ProductCode" = "8:{FD2CA2DF-A6F4-488D-AB14-F498980EB3CA}"
+        "PackageCode" = "8:{21F31890-35D7-4B85-AD28-058805C991BD}"
         "UpgradeCode" = "8:{1C5F24A5-8AF2-4F12-A6D5-E53EBAD482BF}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.1.1"
+        "ProductVersion" = "8:0.1.2"
         "Manufacturer" = "8:Sean Latimer"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -761,7 +777,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_50D049FE5DAF42CAB377FF4DC24FE8F4"
             {
-            "SourcePath" = "8:..\\I3DMapperUI\\obj\\Release\\I3DMappingExporter.exe"
+            "SourcePath" = "8:..\\I3DMapperUI\\obj\\Debug\\I3DMappingExporter.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2614F670063A4B538FBC60707992B97A"
