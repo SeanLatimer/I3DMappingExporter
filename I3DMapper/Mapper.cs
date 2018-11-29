@@ -4,60 +4,66 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace I3DMapper
 {
     public class Mapper
     {
-        public XmlDocument Mappings { get; private set; }
+        public XDocument Mappings { get; private set; }
 
-        private XmlDocument xmlDocument;
+        private XDocument xDocument;
 
-        public Mapper(XmlDocument xmlDocument)
+        public Mapper(XDocument xDocument)
         {
-            this.xmlDocument = xmlDocument;
+            this.xDocument = xDocument;
         }
 
         public void Map()
         {
-            Mappings = new XmlDocument();
-            var mappingsNode = Mappings.CreateElement("i3dMappings");
+            Mappings = new XDocument();
+            Mappings.Add(new XElement("i3dMappings"));
 
-            XmlNode scene = xmlDocument.SelectSingleNode("/i3D/Scene");
+            var scene = this.xDocument.Root.Element("Scene").Elements().ToList();
 
-
-            for (int i = 0; i < scene.ChildNodes.Count; i++)
+            for (int i = 0; i < scene.Count(); i++)
             {
-                XmlNode node = scene.ChildNodes[i];
-                XmlElement mapping = Mappings.CreateElement("i3dMapping");
-                mapping.SetAttribute("id", node.Attributes["name"].Value);
-                mapping.SetAttribute("node", i.ToString());
-                mappingsNode.AppendChild(mapping);
+                XElement element = scene[i];
+                string currentNodeId = element.Attribute("name")?.Value ?? "unkown_node";
+                string currentNode = i.ToString() + ">";
 
-                if (node.HasChildNodes)
+                Mappings.Element("i3dMappings")
+                    .Add(
+                    new XElement("i3dMapping",
+                    new XAttribute("id", currentNodeId),
+                    new XAttribute("node", currentNode)
+                    ));
+
+                if (element.HasElements)
                 {
-                    mapChildren(node.ChildNodes, i.ToString() + ">", ref mappingsNode);
+                    mapChildren(element.Elements().ToList(), currentNodeId, currentNode);
                 }
             }
-
-            Mappings.AppendChild(mappingsNode);
         }
 
-        private void mapChildren(XmlNodeList nl, string indexPath, ref XmlElement mappingsNode)
+        private void mapChildren(List<XElement> el, string parentNodeId, string indexPath)
         {
-            for (int i = 0; i < nl.Count; i++)
+            for (int i = 0; i < el.Count(); i++)
             {
-                XmlNode node = nl[i];
-                string currentPath = indexPath.EndsWith(">") ? indexPath + i.ToString() : indexPath + "|" + i.ToString();
+                var element = el[i];
+                string currentNodeId = string.Format("{0}_{1}", parentNodeId, element.Attribute("name")?.Value ?? "unkown_node");
+                string currentNode = indexPath.EndsWith(">") ? indexPath + i.ToString() : indexPath + "|" + i.ToString();
 
-                XmlElement mapping = Mappings.CreateElement("i3dMapping");
-                mapping.SetAttribute("id", node.Attributes["name"].Value);
-                mapping.SetAttribute("node", currentPath);
-                mappingsNode.AppendChild(mapping);
+                Mappings.Element("i3dMappings")
+                    .Add(
+                    new XElement("i3dMapping",
+                    new XAttribute("id", currentNodeId),
+                    new XAttribute("node", currentNode)
+                    ));
 
-                if (node.HasChildNodes)
+                if (element.HasElements)
                 {
-                    mapChildren(node.ChildNodes, currentPath, ref mappingsNode);
+                    mapChildren(element.Elements().ToList(), currentNodeId, currentNode);
                 }
             }
         }
