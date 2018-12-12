@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>I3DMappingExporter</id>
+    <version>1.0.0</version>
+    <authors>Sean Latimer</authors>
+    <owners>Sean Latimer</owners>
+    <description>I3DMappingExporter</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright ©  2018</copyright>
+  </metadata>
+  <files>
+    <file src="*.*" target="lib\net461\" exclude="*.pdb;*.nupkg;*.vshost.*"/>
+  </files>
+</package>
