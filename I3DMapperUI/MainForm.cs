@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -56,7 +57,7 @@ namespace I3DMapperUI
             return await Task.Factory.StartNew(() =>
             {
                 var mapper = new I3DMapper.Mapper(doc);
-                mapper.Map();
+                mapper.Map(chkShortenID.Checked);
                 return mapper.Mappings;
             }).ConfigureAwait(continueOnCapturedContext: false);           
         }
@@ -80,8 +81,11 @@ namespace I3DMapperUI
 
         private async void MainForm_Load(object sender, EventArgs e)
         {
-            this.Text = string.Format("{0} - v{1}", this.Text, Assembly.GetExecutingAssembly().GetName().Version);
+            var version = Assembly.GetExecutingAssembly().GetName().Version;
+            
+            this.Text = string.Format("{0} - v{1}.{2}.{3}", this.Text, version.Major, version.Minor, version.Build);
             btnPreReleaseUpdates.Checked = Properties.Settings.Default.updatePrerelease;
+            chkShortenID.Checked = Properties.Settings.Default.shortenIDs;
             Task task = updateApp(Properties.Settings.Default.updatePrerelease);
             await task;
         }
@@ -99,12 +103,12 @@ namespace I3DMapperUI
                     lblUpdateStatus.Text = "Checking for updates";
                     pbUpdateProg.Value = 0;
                     pbUpdateProg.Visible = true;
-                    var updateInfo = await mgr.CheckForUpdate(false, (prg) => updateProgress(prg));
+                    var updateInfo = await mgr.CheckForUpdate(false, (prg) => UpdateProgress(prg));
                     if (updateInfo.ReleasesToApply.Any())
                     {
                         lblUpdateStatus.Text = "Downloading update";
                         pbUpdateProg.Value = 0;
-                        release = await mgr.UpdateApp((prg) => updateProgress(prg));
+                        release = await mgr.UpdateApp((prg) => UpdateProgress(prg));
                     }
                     else
                     {
@@ -132,7 +136,8 @@ namespace I3DMapperUI
                 var result = MessageBox.Show("A new update downloaded, would you like to restart now to complete the process?", "Update", MessageBoxButtons.YesNo);
                 if(result == DialogResult.Yes)
                 {
-                    UpdateManager.RestartApp();
+                    await UpdateManager.RestartAppWhenExited();
+                    Environment.Exit(0);
                 }
             }
         }
@@ -151,7 +156,7 @@ namespace I3DMapperUI
             Properties.Settings.Default.Save();
         }
 
-        private void updateProgress(int prog)
+        private void UpdateProgress(int prog)
         {
             if (pbUpdateProg.GetCurrentParent().InvokeRequired)
             {
@@ -159,9 +164,26 @@ namespace I3DMapperUI
             }
         }
 
-        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void QuitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btnAbout_Click(object sender, EventArgs e)
+        {
+            var aboutBox = new AboutBox();
+            aboutBox.ShowDialog();
+        }
+
+        private void btnReportABug_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/SeanLatimer/I3DMappingExporter/issues");
+        }
+
+        private void chkShortenID_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.shortenIDs = chkShortenID.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }

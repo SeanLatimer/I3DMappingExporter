@@ -43,6 +43,9 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblUpdateStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.pbUpdateProg = new System.Windows.Forms.ToolStripProgressBar();
+            this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnReportABug = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkShortenID = new System.Windows.Forms.CheckBox();
             this.menuStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -80,7 +83,7 @@
             // 
             // txtXml
             // 
-            this.txtXml.Location = new System.Drawing.Point(12, 93);
+            this.txtXml.Location = new System.Drawing.Point(12, 117);
             this.txtXml.Multiline = true;
             this.txtXml.Name = "txtXml";
             this.txtXml.ReadOnly = true;
@@ -90,9 +93,9 @@
             // 
             // btnCopy
             // 
-            this.btnCopy.Location = new System.Drawing.Point(240, 64);
+            this.btnCopy.Location = new System.Drawing.Point(12, 88);
             this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(195, 23);
+            this.btnCopy.Size = new System.Drawing.Size(203, 23);
             this.btnCopy.TabIndex = 4;
             this.btnCopy.Text = "Copy to Clipboard";
             this.btnCopy.UseVisualStyleBackColor = true;
@@ -122,11 +125,13 @@
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
             this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.quitToolStripMenuItem.Text = "Quit";
-            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+            this.quitToolStripMenuItem.Click += new System.EventHandler(this.QuitToolStripMenuItem_Click);
             // 
             // menuStripHelp
             // 
             this.menuStripHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnAbout,
+            this.btnReportABug,
             this.btnPreReleaseUpdates,
             this.btnCheckForUpdates});
             this.menuStripHelp.Name = "menuStripHelp";
@@ -153,7 +158,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblUpdateStatus,
             this.pbUpdateProg});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 452);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 474);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(449, 22);
             this.statusStrip1.SizingGrip = false;
@@ -174,11 +179,37 @@
             this.pbUpdateProg.Size = new System.Drawing.Size(100, 16);
             this.pbUpdateProg.Visible = false;
             // 
+            // btnAbout
+            // 
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(180, 22);
+            this.btnAbout.Text = "About";
+            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
+            // 
+            // btnReportABug
+            // 
+            this.btnReportABug.Name = "btnReportABug";
+            this.btnReportABug.Size = new System.Drawing.Size(180, 22);
+            this.btnReportABug.Text = "Report a bug";
+            this.btnReportABug.Click += new System.EventHandler(this.btnReportABug_Click);
+            // 
+            // chkShortenID
+            // 
+            this.chkShortenID.AutoSize = true;
+            this.chkShortenID.Location = new System.Drawing.Point(221, 68);
+            this.chkShortenID.Name = "chkShortenID";
+            this.chkShortenID.Size = new System.Drawing.Size(82, 17);
+            this.chkShortenID.TabIndex = 7;
+            this.chkShortenID.Text = "Shorten IDs";
+            this.chkShortenID.UseVisualStyleBackColor = true;
+            this.chkShortenID.CheckedChanged += new System.EventHandler(this.chkShortenID_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(449, 474);
+            this.ClientSize = new System.Drawing.Size(449, 496);
+            this.Controls.Add(this.chkShortenID);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnCopy);
             this.Controls.Add(this.txtXml);
@@ -217,6 +248,9 @@
         private System.Windows.Forms.ToolStripStatusLabel lblUpdateStatus;
         private System.Windows.Forms.ToolStripProgressBar pbUpdateProg;
         private System.Windows.Forms.ToolStripMenuItem btnPreReleaseUpdates;
+        private System.Windows.Forms.ToolStripMenuItem btnAbout;
+        private System.Windows.Forms.ToolStripMenuItem btnReportABug;
+        private System.Windows.Forms.CheckBox chkShortenID;
     }
 }
 
