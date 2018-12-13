@@ -79,6 +79,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +93,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -134,8 +143,8 @@
     <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
       <Output TaskParameter="Assemblies" ItemName="myAssemblyInfo" />
     </GetAssemblyIdentity>
-    <Exec Command="&quot;@(NugetPackage->'%(fullpath)')&quot; pack I3DMappingExporter.nuspec -Version %(myAssemblyInfo.Version) -Properties Configuration=Release -OutputDirectory $(OutDir) -BasePath $(OutDir)"/>
-	<Exec Command="&quot;@(SyncReleasesPackage->'%(fullpath)')&quot; --url=https://slreleases.ams3.digitaloceanspaces.com/I3DMappingExporter/stable --releaseDir=../Releases " />
+    <Exec Command="&quot;@(NugetPackage->'%(fullpath)')&quot; pack I3DMappingExporter.nuspec -Version %(myAssemblyInfo.Version) -Properties Configuration=Release -OutputDirectory $(OutDir) -BasePath $(OutDir)" />
+    <Exec Command="&quot;@(SyncReleasesPackage->'%(fullpath)')&quot; --url=https://slreleases.ams3.digitaloceanspaces.com/I3DMappingExporter/stable --releaseDir=../Releases " />
     <Exec Command="&quot;@(SquirrelPackage->'%(fullpath)')&quot; --releasify $(OutDir)I3DMappingExporter.$([System.Version]::Parse(%(myAssemblyInfo.Version)).ToString(3)).nupkg --releaseDir=../Releases " />
   </Target>
 </Project>

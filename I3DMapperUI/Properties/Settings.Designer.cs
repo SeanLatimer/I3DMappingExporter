@@ -34,5 +34,17 @@ namespace I3DMapperUI.Properties {
                 this["updatePrerelease"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool shortenIDs {
+            get {
+                return ((bool)(this["shortenIDs"]));
+            }
+            set {
+                this["shortenIDs"] = value;
+            }
+        }
     }
 }

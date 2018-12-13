@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Xml.Linq;
 
 namespace I3DMapper
@@ -15,7 +16,7 @@ namespace I3DMapper
             this.xDocument = xDocument;
         }
 
-        public void Map()
+        public void Map(bool shortIDs = false)
         {
             Mappings = new XDocument();
             Mappings.Add(new XElement("i3dMappings"));
@@ -37,17 +38,22 @@ namespace I3DMapper
 
                 if (element.HasElements)
                 {
-                    mapChildren(element.Elements().ToList(), currentNodeId, currentNode);
+                    mapChildren(element.Elements().ToList(), !shortIDs ? currentNodeId : "", currentNode);
                 }
             }
+            resolveDuplicates();
         }
 
         private void mapChildren(List<XElement> el, string parentNodeId, string indexPath)
         {
+            bool shortID = string.IsNullOrEmpty(parentNodeId);
             for (int i = 0; i < el.Count(); i++)
             {
                 var element = el[i];
-                string currentNodeId = string.Format("{0}_{1}", parentNodeId, element.Attribute("name")?.Value ?? "unkown_node");
+                string currentNodeId = !shortID ?
+                    string.Format("{0}_{1}", parentNodeId, element.Attribute("name")?.Value ?? "unkown_node")
+                    : element.Attribute("name")?.Value ?? "unkown_node";
+
                 string currentNode = indexPath.EndsWith(">") ? indexPath + i.ToString() : indexPath + "|" + i.ToString();
 
                 Mappings.Element("i3dMappings")
@@ -59,7 +65,24 @@ namespace I3DMapper
 
                 if (element.HasElements)
                 {
-                    mapChildren(element.Elements().ToList(), currentNodeId, currentNode);
+                    mapChildren(element.Elements().ToList(), !shortID ? currentNodeId : "", currentNode);
+                }
+            }
+        }
+
+        private void resolveDuplicates()
+        {
+            var dupeGroups = from dupe in Mappings.Root.Descendants()
+                             group dupe by (string)dupe.Attribute("id") into grp
+                             where grp.Count() > 1
+                             select grp;
+
+            foreach (var grp in dupeGroups)
+            {
+                var lst = grp.ToList();
+                for (int i = 0; i < lst.Count; i++)
+                {
+                    lst[i].Attribute("id").Value = string.Format("{0}_{1}", (string)lst[i].Attribute("id"), i);
                 }
             }
         }
