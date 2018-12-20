@@ -126,6 +126,8 @@ namespace I3DMapperUI
       Application.Exit();
     }
 
+
+
     private async Task updateApp(bool preRelease = false)
     {
       if (checkingForUpdates) return;
@@ -136,15 +138,16 @@ namespace I3DMapperUI
       {
         using (var mgr = new UpdateManager("https://slreleases.ams3.cdn.digitaloceanspaces.com/I3DMappingExporter/stable"))
         {
+          IProgress<int> progress = new Progress<int>((prg) => this.pbUpdateProg.Value = prg);
           lblUpdateStatus.Text = "Checking for updates";
           pbUpdateProg.Value = 0;
           pbUpdateProg.Visible = true;
-          var updateInfo = await mgr.CheckForUpdate(false, (prg) => UpdateProgress(prg));
+          var updateInfo = await mgr.CheckForUpdate(false, (prg) => progress.Report(prg));
           if (updateInfo.ReleasesToApply.Any())
           {
             lblUpdateStatus.Text = "Downloading update";
             pbUpdateProg.Value = 0;
-            release = await mgr.UpdateApp((prg) => UpdateProgress(prg));
+            release = await mgr.UpdateApp((prg) => progress.Report(prg));
           }
           else
           {
@@ -175,14 +178,6 @@ namespace I3DMapperUI
           await UpdateManager.RestartAppWhenExited();
           Environment.Exit(0);
         }
-      }
-    }
-
-    private void UpdateProgress(int prog)
-    {
-      if (pbUpdateProg.GetCurrentParent().InvokeRequired)
-      {
-        pbUpdateProg.GetCurrentParent().Invoke(new MethodInvoker(delegate { pbUpdateProg.Value = prog; }));
       }
     }
   }
