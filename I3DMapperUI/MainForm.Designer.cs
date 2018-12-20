@@ -38,13 +38,13 @@
             this.menuStripFile = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnReportABug = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPreReleaseUpdates = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCheckForUpdates = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblUpdateStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.pbUpdateProg = new System.Windows.Forms.ToolStripProgressBar();
-            this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnReportABug = new System.Windows.Forms.ToolStripMenuItem();
             this.chkShortenID = new System.Windows.Forms.CheckBox();
             this.menuStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -123,7 +123,7 @@
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.QuitToolStripMenuItem_Click);
             // 
@@ -138,18 +138,32 @@
             this.menuStripHelp.Size = new System.Drawing.Size(44, 20);
             this.menuStripHelp.Text = "Help";
             // 
+            // btnAbout
+            // 
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(173, 22);
+            this.btnAbout.Text = "About";
+            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
+            // 
+            // btnReportABug
+            // 
+            this.btnReportABug.Name = "btnReportABug";
+            this.btnReportABug.Size = new System.Drawing.Size(173, 22);
+            this.btnReportABug.Text = "Report a bug";
+            this.btnReportABug.Click += new System.EventHandler(this.btnReportABug_Click);
+            // 
             // btnPreReleaseUpdates
             // 
             this.btnPreReleaseUpdates.Enabled = false;
             this.btnPreReleaseUpdates.Name = "btnPreReleaseUpdates";
-            this.btnPreReleaseUpdates.Size = new System.Drawing.Size(180, 22);
+            this.btnPreReleaseUpdates.Size = new System.Drawing.Size(173, 22);
             this.btnPreReleaseUpdates.Text = "PreReleaseUpdates";
             this.btnPreReleaseUpdates.Visible = false;
             // 
             // btnCheckForUpdates
             // 
             this.btnCheckForUpdates.Name = "btnCheckForUpdates";
-            this.btnCheckForUpdates.Size = new System.Drawing.Size(180, 22);
+            this.btnCheckForUpdates.Size = new System.Drawing.Size(173, 22);
             this.btnCheckForUpdates.Text = "Check for updates";
             this.btnCheckForUpdates.Click += new System.EventHandler(this.btnCheckForUpdates_Click);
             // 
@@ -178,20 +192,6 @@
             this.pbUpdateProg.Name = "pbUpdateProg";
             this.pbUpdateProg.Size = new System.Drawing.Size(100, 16);
             this.pbUpdateProg.Visible = false;
-            // 
-            // btnAbout
-            // 
-            this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(180, 22);
-            this.btnAbout.Text = "About";
-            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
-            // 
-            // btnReportABug
-            // 
-            this.btnReportABug.Name = "btnReportABug";
-            this.btnReportABug.Size = new System.Drawing.Size(180, 22);
-            this.btnReportABug.Text = "Report a bug";
-            this.btnReportABug.Click += new System.EventHandler(this.btnReportABug_Click);
             // 
             // chkShortenID
             // 
